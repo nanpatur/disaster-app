@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import * as firebase from "firebase/app";
 import "firebase/messaging";
 import { firebaseCloudMessaging, messaging } from "../utils/firebase";
 import { ToastContainer, toast } from "react-toastify";
