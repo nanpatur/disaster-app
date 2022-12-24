@@ -2,22 +2,27 @@ import "firebase/messaging";
 import firebase from "firebase/app";
 import localforage from "localforage";
 
+import { initializeApp } from "firebase/app";
+import { getMessaging } from "firebase/messaging";
+
+// TODO: Replace the following with your app's Firebase project configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCkS9DmrllBFmgVGqasAW8kQY5JVnO5Jt0",
+  authDomain: "disaster-app-60146.firebaseapp.com",
+  projectId: "disaster-app-60146",
+  storageBucket: "disaster-app-60146.appspot.com",
+  messagingSenderId: "352235217905",
+  appId: "1:352235217905:web:a795f1b4141e08fb879a50",
+  measurementId: "G-8JSTEHDXCH",
+};
+
+const app = initializeApp(firebaseConfig);
+const messaging = getMessaging(app);
+
 const firebaseCloudMessaging = {
   init: async () => {
     if (!firebase?.apps?.length) {
-      // Initialize the Firebase app with the credentials
-      firebase?.initializeApp({
-        apiKey: "AIzaSyCkS9DmrllBFmgVGqasAW8kQY5JVnO5Jt0",
-        authDomain: "disaster-app-60146.firebaseapp.com",
-        projectId: "disaster-app-60146",
-        storageBucket: "disaster-app-60146.appspot.com",
-        messagingSenderId: "352235217905",
-        appId: "1:352235217905:web:a795f1b4141e08fb879a50",
-        measurementId: "G-8JSTEHDXCH",
-      });
-
       try {
-        const messaging = firebase.messaging();
         const tokenInLocalForage = await localforage.getItem("fcm_token");
 
         // Return the token if it is alredy in our local storage
@@ -47,4 +52,4 @@ const firebaseCloudMessaging = {
     }
   },
 };
-export { firebaseCloudMessaging };
+export { app, messaging, firebaseCloudMessaging };
